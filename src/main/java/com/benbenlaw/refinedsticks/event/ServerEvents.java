@@ -4,10 +4,13 @@ import com.benbenlaw.refinedsticks.RefinedSticks;
 import com.benbenlaw.refinedsticks.integration.RSIntegration;
 import com.benbenlaw.refinedsticks.network.StickJobPacket;
 import com.refinedmods.refinedstorage.common.content.DataComponents;
+import com.refinedmods.refinedstorage.common.controller.AbstractControllerBlock;
 import com.refinedmods.refinedstorage.common.controller.ControllerBlock;
+import com.refinedmods.refinedstorage.common.support.AbstractActiveColoredDirectionalBlock;
 import mrbysco.constructionstick.items.stick.ItemStick;
 import mrbysco.constructionstick.items.stick.ItemStickBasic;
 import mrbysco.constructionstick.stick.StickJob;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -65,17 +68,12 @@ public class ServerEvents {
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         ItemStack stack = event.getItemStack();
-        Block block = event.getLevel().getBlockState(event.getPos()).getBlock();
+        Block block = event.getLevel().getBlockState(event.getHitVec().getBlockPos()).getBlock();
 
-        if (!(block instanceof ControllerBlock)) return;
-
-        if (!(stack.getItem() instanceof ItemStickBasic)) {
-            return;
-        }
-
-        if (player.level().isClientSide) {
-            return;
-        }
+        if (!(block instanceof AbstractControllerBlock<?>)) return;
+        if (!(stack.getItem() instanceof ItemStickBasic)) return;
+        if (player.level().isClientSide) return;
+        if (!Minecraft.getInstance().player.isCrouching()) return;
 
         UseOnContext ctx = new UseOnContext(
                 player,

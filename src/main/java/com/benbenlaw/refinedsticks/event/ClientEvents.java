@@ -75,7 +75,7 @@ class ClientEvents {
                 lines.add(upgradesIndex++, Component.literal(" [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "]")
                         .withStyle(ChatFormatting.GREEN));
             } else {
-                lines.add(upgradesIndex++, Component.translatable("tooltip.appliedsticks.unlinked")
+                lines.add(upgradesIndex++, Component.translatable("tooltip.refinedsticks.unlinked")
                         .withStyle(ChatFormatting.AQUA));
             }
         }
