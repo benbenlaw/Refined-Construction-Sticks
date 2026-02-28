@@ -17,7 +17,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -60,7 +63,7 @@ class ClientEvents {
             upgradesIndex--;
         }
 
-        if (!stack.has(DataComponents.INSTANCE.getNetworkLocation())) {
+        if (!stack.has(DataComponents.INSTANCE.getNetworkLocation()) && stack.is(TagKey.create(Registries.ITEM, ResourceLocation.parse("constructionstick:construction_sticks")))) {
             lines.add(upgradesIndex++, Component.translatable("tooltip.refinedsticks.unlinked")
                     .withStyle(ChatFormatting.AQUA));
         } else {
@@ -74,9 +77,6 @@ class ClientEvents {
                 lines.add(upgradesIndex++, Component.literal(dim).withStyle(ChatFormatting.GREEN));
                 lines.add(upgradesIndex++, Component.literal(" [" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + "]")
                         .withStyle(ChatFormatting.GREEN));
-            } else {
-                lines.add(upgradesIndex++, Component.translatable("tooltip.refinedsticks.unlinked")
-                        .withStyle(ChatFormatting.AQUA));
             }
         }
     }

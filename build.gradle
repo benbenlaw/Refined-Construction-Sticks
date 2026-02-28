@@ -1,4 +1,4 @@
-//import net.darkhax.curseforgegradle.TaskPublishCurseForge
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
     id 'java-library'
@@ -68,7 +68,7 @@ dependencies {
 
     implementation "curse.maven:jei-238222:6614392" // JEI
     implementation "curse.maven:refined-storage-243076:7039043" // refined storage
-    implementation "curse.maven:construction-sticks-1156098:6641229" // construction sticks
+    implementation "curse.maven:construction-sticks-1156098:7687867" // construction sticks
     implementation "curse.maven:guideme-1173950:6812025" // guide me
     implementation "curse.maven:storage-drawers-223852:6995432" // storage drawers
 
@@ -127,13 +127,12 @@ idea {
     }
 }
 
-/*
 tasks.register('publishCurseForge', TaskPublishCurseForge) {
     group "modpublishing"
 
     apiToken = System.getenv("curseforge_token").toString()
 
-    def projectId = 1334500
+    def projectId = 1460013
     def mainFile = upload(projectId, jar)
 
     mainFile.changelog = changelog
@@ -147,9 +146,9 @@ tasks.getByName("modrinth").setGroup("modpublishing")
 
 modrinth {
     token = System.getenv("modrinth_token").toString()
-    projectId = "g69ApBz2"
+    projectId = "G4DDLIRm"
     versionType = "release"
-    versionName = "routers-" + "$minecraft_version" + "-" + "$mod_version"
+    versionName = "refinedsticks-" + "$minecraft_version" + "-" + "$mod_version"
     uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
 
     gameVersions.addAll(minecraft_version)
@@ -160,8 +159,6 @@ modrinth {
         optional.project "jei"
     }
 }
-
- */
 
 
 

@@ -1,4 +1,8 @@
 Refined Construction Sticks
 
+# 1.2.0
+- Added support for Construction Sticks 1.21.1-1.3.0
+
+
 1.1.3
 - Reverted change to make the stick only connect to a controller block not any refined storage block when holding shift
