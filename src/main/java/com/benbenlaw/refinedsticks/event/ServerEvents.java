@@ -5,15 +5,13 @@ import com.benbenlaw.refinedsticks.integration.RSIntegration;
 import com.benbenlaw.refinedsticks.network.StickJobPacket;
 import com.refinedmods.refinedstorage.common.content.DataComponents;
 import com.refinedmods.refinedstorage.common.controller.AbstractControllerBlock;
-import com.refinedmods.refinedstorage.common.controller.ControllerBlock;
-import com.refinedmods.refinedstorage.common.support.AbstractActiveColoredDirectionalBlock;
 import mrbysco.constructionstick.items.stick.ItemStick;
 import mrbysco.constructionstick.items.stick.ItemStickBasic;
 import mrbysco.constructionstick.stick.StickJob;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
@@ -48,7 +46,7 @@ public class ServerEvents {
             HitResult result = player.pick(player.blockInteractionRange(), 0.0F, false);
 
             if (heldItem.has(DataComponents.INSTANCE.getNetworkLocation())
-                    && heldItem.is(TagKey.create(Registries.ITEM, ResourceLocation.parse("constructionstick:construction_sticks")))
+                    && heldItem.is(TagKey.create(Registries.ITEM, Identifier.parse("constructionstick:construction_sticks")))
                     && result instanceof BlockHitResult hitResult) {
 
                 StickJob job = ItemStick.getStickJob(player, level, hitResult, heldItem);
@@ -72,7 +70,7 @@ public class ServerEvents {
 
         if (!(block instanceof AbstractControllerBlock<?>)) return;
         if (!(stack.getItem() instanceof ItemStickBasic)) return;
-        if (player.level().isClientSide) return;
+        if (player.level().isClientSide()) return;
         if (!Minecraft.getInstance().player.isCrouching()) return;
 
         UseOnContext ctx = new UseOnContext(
