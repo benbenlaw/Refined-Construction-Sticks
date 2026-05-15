@@ -72,8 +72,7 @@ public class ServerEvents {
 
         if (!(block instanceof AbstractControllerBlock<?>)) return;
         if (!(stack.getItem() instanceof ItemStickBasic)) return;
-        if (player.level().isClientSide) return;
-        if (!Minecraft.getInstance().player.isCrouching()) return;
+        if (!player.isCrouching()) return;
 
         UseOnContext ctx = new UseOnContext(
                 player,
