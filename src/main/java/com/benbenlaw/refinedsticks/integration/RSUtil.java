@@ -8,9 +8,11 @@ import com.refinedmods.refinedstorage.common.content.DataComponents;
 import com.refinedmods.refinedstorage.neoforge.api.RefinedStorageNeoForgeApi;
 import mrbysco.constructionstick.items.stick.ItemStickBasic;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class RSUtil {
@@ -27,14 +29,21 @@ public class RSUtil {
         GlobalPos pos = getLinkedPos(stick);
         if (pos == null) return null;
 
-        Level level = player.level();
-        BlockEntity be = level.getBlockEntity(pos.pos());
+        if (!(player instanceof ServerPlayer serverPlayer)) return null;
+
+        MinecraftServer server = serverPlayer.level().getServer();
+
+        ServerLevel targetLevel = server.getLevel(pos.dimension());
+        if (targetLevel == null) return null;
+        if (!targetLevel.isLoaded(pos.pos())) return null;
+
+        BlockEntity be = targetLevel.getBlockEntity(pos.pos());
         if (be == null) return null;
 
         NetworkNodeContainerProvider provider =
                 RefinedStorageNeoForgeApi.INSTANCE
                         .getNetworkNodeContainerProviderCapability()
-                        .getCapability(level, pos.pos(), be.getBlockState(), be, null);
+                        .getCapability(targetLevel, pos.pos(), be.getBlockState(), be, null);
 
         if (provider == null) return null;
 
