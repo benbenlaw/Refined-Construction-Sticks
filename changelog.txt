@@ -1,5 +1,8 @@
 Refined Construction Sticks
 
+# 1.2.2
+- Fixed sticks not working across dimensions
+
 # 1.2.1
 - Fixed construction stick not connecting to controller on servers
 
