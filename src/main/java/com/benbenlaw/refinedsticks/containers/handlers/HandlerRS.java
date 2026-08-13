@@ -7,6 +7,7 @@ import com.refinedmods.refinedstorage.api.network.storage.StorageNetworkComponen
 import com.refinedmods.refinedstorage.api.storage.Actor;
 import com.refinedmods.refinedstorage.common.support.resource.ItemResource;
 import mrbysco.constructionstick.api.IContainerHandler;
+import mrbysco.constructionstick.containers.ContainerTrace;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
@@ -41,7 +42,12 @@ public class HandlerRS implements IContainerHandler {
     }
 
     @Override
-    public int countItems(Player player, ItemStack itemStack, ItemStack inventoryStack) {
+    public int getSignature(Player player, ItemStack itemStack) {
+        return 0;
+    }
+
+    @Override
+    public int countItems(Player player, ContainerTrace containerTrace, ItemStack itemStack, ItemStack inventoryStack) {
         Network network = RSUtil.getStorage(inventoryStack, player);
         if (network == null) return 0;
 
@@ -57,7 +63,7 @@ public class HandlerRS implements IContainerHandler {
     }
 
     @Override
-    public int useItems(Player player, ItemStack itemStack, ItemStack inventoryStack, int count) {
+    public int useItems(Player player, ContainerTrace containerTrace, ItemStack itemStack, ItemStack inventoryStack, int count) {
         Network network = RSUtil.getStorage(inventoryStack, player);
         if (network == null) return count;
 
